@@ -1,0 +1,374 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --fs-base:16px;
+    --fs-title:42px;
+    --fs-subtitle:13px;
+    --fs-ornament:22px;
+    --fs-aviso-title:20px;
+    --fs-aviso-p:14px;
+    --fs-btn:17px;
+    --fs-qnum:15px;
+    --fs-qtext:18px;
+    --fs-opt:15px;
+    --fs-opt-letter:17px;
+    --fs-rlabel:11px;
+    --fs-realm:44px;
+    --fs-place:19px;
+    --fs-desc:14px;
+    --fs-score:12px;
+    --fs-reiniciar:14px;
+    --fs-foot:11px;
+    --pad-section:40px 52px 56px;
+    --pad-aviso:18px 22px;
+    --pad-btn-v:13px;
+    --pad-btn-h:36px;
+    --pad-opt-v:13px;
+    --pad-opt-h:16px;
+    --illus:160px;
+    --gap-opts:10px;
+    --parch:#f5e6c8;
+    --parch-dark:#e8d5a3;
+    --ink:#1a0a00;
+    --ink-faded:#5c3d1e;
+    --gold:#b8860b;
+    --crimson:#8b0000;
+    --crimson-light:#c41230;
+    --bdecor:#8b6914;
+  }
+  /* MOBILE OVERRIDE — si el contenedor mide ≤500px */
+  @media(max-width:500px){
+    :root{
+      --fs-title:30px;
+      --fs-subtitle:12px;
+      --fs-ornament:18px;
+      --fs-aviso-title:18px;
+      --fs-aviso-p:14px;
+      --fs-btn:16px;
+      --fs-qnum:14px;
+      --fs-qtext:17px;
+      --fs-opt:15px;
+      --fs-opt-letter:17px;
+      --fs-rlabel:11px;
+      --fs-realm:34px;
+      --fs-place:17px;
+      --fs-desc:14px;
+      --fs-score:12px;
+      --fs-reiniciar:14px;
+      --fs-foot:11px;
+      --pad-section:24px 18px 36px;
+      --pad-aviso:14px 14px;
+      --pad-btn-v:13px;
+      --pad-btn-h:24px;
+      --pad-opt-v:14px;
+      --pad-opt-h:14px;
+      --illus:130px;
+      --gap-opts:10px;
+    }
+  }
+
+  #dc-root{
+    background:var(--parch);
+    color:var(--ink);
+    font-family:'IM Fell English',Georgia,serif;
+    font-size:var(--fs-base);
+    min-height:100vh;
+    position:relative;
+    border:3px double var(--bdecor);
+    border-radius:4px;
+    width:100%;
+  }
+  .corner{
+    position:absolute;color:var(--gold);
+    font-size:clamp(26px,5vw,44px);
+    opacity:0.6;pointer-events:none;line-height:1;
+  }
+  .corner.tl{top:4px;left:6px;}
+  .corner.tr{top:4px;right:6px;transform:scaleX(-1);}
+  .corner.bl{bottom:4px;left:6px;transform:scaleY(-1);}
+  .corner.br{bottom:4px;right:6px;transform:scale(-1);}
+
+  .section{display:none;padding:var(--pad-section);animation:fadeIn 0.55s ease;}
+  .section.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  #s-inicio{text-align:center;}
+  .title-fraktur{
+    font-family:'UnifrakturMaguntia',cursive;
+    font-size:var(--fs-title);
+    color:var(--crimson);
+    text-shadow:2px 2px 0 var(--gold);
+    line-height:1.2;margin-bottom:4px;
+    word-break:break-word;
+  }
+  .subtitle-latin{
+    font-style:italic;color:var(--ink-faded);
+    font-size:var(--fs-subtitle);
+    letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;
+  }
+  .ornament{color:var(--gold);font-size:var(--fs-ornament);margin:5px 0;}
+
+  .aviso-box{
+    background:var(--parch-dark);border:1px solid var(--bdecor);
+    border-radius:2px;padding:var(--pad-aviso);
+    text-align:left;margin:16px 0 22px;position:relative;
+  }
+  .aviso-title{
+    font-family:'UnifrakturMaguntia',cursive;
+    font-size:var(--fs-aviso-title);
+    color:var(--crimson);text-align:center;margin-bottom:10px;
+  }
+  .aviso-box p{font-size:var(--fs-aviso-p);line-height:1.85;color:var(--ink-faded);}
+  .aviso-box::before{
+    content:'❧';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+    font-size:20px;color:var(--gold);background:var(--parch-dark);padding:0 8px;
+  }
+
+  .btn-start{
+    background:var(--crimson);color:var(--parch);
+    border:2px solid var(--gold);
+    padding:var(--pad-btn-v) var(--pad-btn-h);
+    font-family:'IM Fell English',Georgia,serif;
+    font-size:var(--fs-btn);font-style:italic;
+    cursor:pointer;border-radius:2px;
+    transition:background 0.2s,transform 0.15s;
+    letter-spacing:1px;width:100%;max-width:320px;
+    touch-action:manipulation;
+  }
+  .btn-start:active{background:var(--crimson-light);transform:scale(1.02);}
+
+  .progress-wrap{margin-bottom:20px;}
+  .progress-label{font-size:var(--fs-rlabel);color:var(--ink-faded);font-style:italic;text-align:right;margin-bottom:5px;letter-spacing:1px;}
+  .progress-track{background:var(--parch-dark);border:1px solid var(--bdecor);height:9px;border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--crimson) 0%,var(--gold) 100%);transition:width 0.5s ease;}
+
+  .q-number{font-family:'UnifrakturMaguntia',cursive;font-size:var(--fs-qnum);color:var(--gold);margin-bottom:8px;letter-spacing:2px;}
+  .q-text{
+    font-size:var(--fs-qtext);line-height:1.65;color:var(--ink);
+    margin-bottom:20px;font-style:italic;
+    border-left:3px solid var(--gold);padding-left:12px;
+  }
+  .options{display:flex;flex-direction:column;gap:var(--gap-opts);}
+  .option-btn{
+    background:transparent;border:1px solid var(--bdecor);border-radius:2px;
+    padding:var(--pad-opt-v) var(--pad-opt-h);
+    font-family:'IM Fell English',Georgia,serif;
+    font-size:var(--fs-opt);color:var(--ink);
+    cursor:pointer;text-align:left;
+    transition:background 0.18s,border-color 0.18s;
+    line-height:1.6;width:100%;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  }
+  .option-btn:active{background:var(--parch-dark);border-color:var(--gold);}
+  .option-btn .opt-letter{font-family:'UnifrakturMaguntia',cursive;font-size:var(--fs-opt-letter);color:var(--crimson);margin-right:8px;}
+  .option-btn.selected{background:var(--parch-dark);border-color:var(--crimson);border-width:2px;}
+
+  #s-resultado{text-align:center;}
+  .result-realm{font-family:'UnifrakturMaguntia',cursive;font-size:var(--fs-realm);margin-bottom:4px;}
+  .realm-paraiso{color:#b8860b;}
+  .realm-purgatorio{color:#6b5a2a;}
+  .realm-infierno{color:#8b0000;}
+  .result-place{font-size:var(--fs-place);font-style:italic;color:var(--ink-faded);margin-bottom:14px;letter-spacing:1px;}
+  .illustration{margin:14px auto;width:var(--illus);height:var(--illus);}
+  .result-desc{
+    background:var(--parch-dark);border:1px solid var(--bdecor);
+    padding:16px 18px;font-size:var(--fs-desc);line-height:1.9;
+    color:var(--ink-faded);font-style:italic;border-radius:2px;
+    margin:14px 0 22px;position:relative;text-align:left;
+  }
+  .result-desc::before{
+    content:'"';font-size:48px;color:var(--gold);opacity:0.3;
+    position:absolute;top:-8px;left:5px;font-family:Georgia,serif;line-height:1;
+  }
+  .score-badge{
+    display:inline-block;background:var(--parch-dark);border:1px solid var(--bdecor);
+    border-radius:2px;padding:5px 14px;font-size:var(--fs-score);
+    color:var(--ink-faded);margin-bottom:14px;letter-spacing:1px;
+  }
+  .btn-reiniciar{
+    background:transparent;color:var(--crimson);border:1px solid var(--crimson);
+    padding:10px 24px;font-family:'IM Fell English',Georgia,serif;
+    font-size:var(--fs-reiniciar);font-style:italic;cursor:pointer;border-radius:2px;
+    transition:background 0.2s,color 0.2s;width:100%;max-width:260px;
+    touch-action:manipulation;
+  }
+  .btn-reiniciar:active{background:var(--crimson);color:var(--parch);}
+  .hr-decor{border:none;border-top:1px solid var(--bdecor);margin:16px 0;position:relative;text-align:center;}
+  .hr-decor::after{content:'✦';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--parch);color:var(--gold);padding:0 8px;font-size:13px;}
+  .foot-note{margin-top:18px;font-size:var(--fs-foot);color:var(--ink-faded);font-style:italic;opacity:0.7;}
+</style>
+
+<div id="dc-root">
+  <span class="corner tl">☩</span>
+  <span class="corner tr">☩</span>
+  <span class="corner bl">☩</span>
+  <span class="corner br">☩</span>
+
+  <div id="s-inicio" class="section active">
+    <div class="title-fraktur">Tres mundos, tres lecciones</div>
+    <div class="subtitle-latin">La Divina Comedia</div>
+    <div class="ornament">❧ ✦ ❧</div>
+    <div class="aviso-box">
+      <div class="aviso-title">Aviso importante</div>
+      <p>Esta encuesta está inspirada en <em>La Divina Comedia</em> de Dante Alighieri y ha sido creada con fines educativos, culturales y recreativos. El resultado que obtengas no debe interpretarse como un juicio definitivo sobre tu personalidad, tus creencias o tus acciones reales.<br><br>Responde con sinceridad y disfruta de la experiencia. Al finalizar, descubrirás qué destino — <strong>Infierno, Purgatorio o Paraíso</strong> — se relaciona más con tus respuestas.</p>
+    </div>
+    <button class="btn-start" onclick="startJourney()">✦ Comenzar viaje ✦</button>
+    <p class="foot-note">Nel mezzo del cammin di nostra vita...</p>
+  </div>
+
+  <div id="s-pregunta" class="section">
+    <div class="progress-wrap">
+      <div class="progress-label" id="prog-label">Pregunta 1 de 10</div>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:10%"></div></div>
+    </div>
+    <div class="q-number" id="q-num">Pregunta I</div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options" id="q-options"></div>
+    <div class="hr-decor" style="margin-top:24px;"></div>
+  </div>
+
+  <div id="s-resultado" class="section">
+    <div class="ornament" style="font-size:28px;">✦</div>
+    <div class="result-realm" id="res-realm"></div>
+    <div class="result-place" id="res-place"></div>
+    <div class="illustration" id="res-illus"></div>
+    <div class="score-badge" id="res-score"></div>
+    <div class="result-desc" id="res-desc"></div>
+    <hr class="hr-decor">
+    <button class="btn-reiniciar" onclick="reiniciar()">↺ &nbsp;Volver a intentarlo</button>
+    <p class="foot-note">Lasciate ogne speranza, voi ch'intrate...</p>
+  </div>
+</div>
+
+<script>
+/* ── datos ── */
+const preguntas=[
+  {texto:"Un amigo muy cercano ha cometido una falta grave.",opciones:[{letra:"A",texto:"Digo la verdad, aunque eso perjudique nuestra amistad.",pts:2},{letra:"B",texto:"Lo defiendo aunque sé que está mal.",pts:-2},{letra:"C",texto:"Intento que reconozca su error y se corrija.",pts:1}]},
+  {texto:"Obtienes un cargo importante que te da poder sobre otras personas.",opciones:[{letra:"A",texto:"Lo veo como una responsabilidad para servir a otros.",pts:2},{letra:"B",texto:"Lo utilizo principalmente para mi beneficio.",pts:-2},{letra:"C",texto:"Intento equilibrar mis intereses con los de los demás.",pts:1}]},
+  {texto:"Descubres un secreto que podría darte ventajas personales.",opciones:[{letra:"A",texto:"Actúo de la forma más justa para todos los involucrados.",pts:2},{letra:"B",texto:"Lo utilizo sin importar las consecuencias.",pts:-2},{letra:"C",texto:"Evalúo si compartirlo o guardarlo según la situación.",pts:1}]},
+  {texto:"Una persona que te hizo daño necesita ayuda.",opciones:[{letra:"A",texto:"La ayudo porque considero que es lo correcto.",pts:2},{letra:"B",texto:"Me alegra verla sufrir.",pts:-2},{letra:"C",texto:"La ayudo solo si no me cuesta demasiado.",pts:1}]},
+  {texto:"Tu mayor ambición en la vida sería...",opciones:[{letra:"A",texto:"Crecer como persona y contribuir al bien común.",pts:2},{letra:"B",texto:"Ser admirado y superior a los demás.",pts:-2},{letra:"C",texto:"Alcanzar el éxito sin perder mis valores.",pts:1}]},
+  {texto:"Si nadie pudiera descubrir tus acciones durante un día entero...",opciones:[{letra:"A",texto:"Actuaría igual que siempre.",pts:2},{letra:"B",texto:"Haría cosas que normalmente no me atrevo a hacer.",pts:-2},{letra:"C",texto:"Algunas reglas dejarían de importarme.",pts:1}]},
+  {texto:"¿Qué opinas sobre quienes piensan diferente a ti?",opciones:[{letra:"A",texto:"Todos tienen algo que enseñar.",pts:2},{letra:"B",texto:"Suelen estar equivocados y deberían cambiar.",pts:-2},{letra:"C",texto:"Algunas ideas merecen ser escuchadas.",pts:1}]},
+  {texto:"Después de cometer un error grave...",opciones:[{letra:"A",texto:"Asumo completamente las consecuencias y reparo el daño.",pts:2},{letra:"B",texto:"Busco justificarme.",pts:-2},{letra:"C",texto:"Siento remordimiento y trato de mejorar.",pts:1}]},
+  {texto:"Si pudieras obtener riqueza ilimitada a cambio de perjudicar a desconocidos...",opciones:[{letra:"A",texto:"Lo rechazaría.",pts:2},{letra:"B",texto:"Lo aceptaría.",pts:-2},{letra:"C",texto:"Dependería de cuánto daño causara.",pts:1}]},
+  {texto:"Al final de tu vida, ¿qué te gustaría que recordaran de ti?",opciones:[{letra:"A",texto:"Mi bondad y el bien que hice a otros.",pts:2},{letra:"B",texto:"Mi poder y mis logros.",pts:-2},{letra:"C",texto:"Mis esfuerzos por superarme.",pts:1}]}
+];
+const romanos=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
+const paraiso=[
+  {lugar:"La Luna",desc:"Moradas de las almas de quienes no cumplieron completamente sus votos pero cuya virtud las eleva hacia la luz divina."},
+  {lugar:"Mercurio",desc:"Aquí residen las almas que obraron bien impulsadas por el deseo de honor y gloria, brillando con luz propia."},
+  {lugar:"Venus",desc:"El cielo de los amantes virtuosos, donde las almas danzan en círculos de fuego y amor celestial."},
+  {lugar:"El Sol",desc:"Morada de los sabios y teólogos, coronas de luz que iluminan la mente con la verdad eterna."},
+  {lugar:"Marte",desc:"El cielo de los guerreros de la fe, donde las almas forman una cruz luminosa de sacrificio y valor."},
+  {lugar:"Júpiter",desc:"El reino de los príncipes justos, donde las almas forman un águila de luz que proclama la justicia divina."},
+  {lugar:"Saturno",desc:"El cielo de los contemplativos y ascetas, almas que escalaron la dorada escalera hacia Dios."},
+  {lugar:"Las Estrellas Fijas",desc:"Aquí los grandes espíritus exhiben su fe, esperanza y caridad ante la mirada de los bienaventurados."},
+  {lugar:"El Primer Motor",desc:"El cielo cristalino que mueve todo el universo, donde el tiempo toca la eternidad."},
+  {lugar:"El Empíreo",desc:"La Rosa Celestial de la luz divina. Has alcanzado la morada suprema donde Dios resplandece en toda su gloria."}
+];
+const purgatorio=[
+  {lugar:"El Antepurgatorio",desc:"Umbral del monte sagrado, donde las almas tardías esperan antes de comenzar su purificación."},
+  {lugar:"La Soberbia",desc:"Primer cornisa: las almas cargan pesadas rocas para aprender la humildad que les faltó en vida."},
+  {lugar:"La Envidia",desc:"Segunda cornisa: los ojos cosidos con alambre de hierro, para aprender a alegrarse del bien ajeno."},
+  {lugar:"La Ira",desc:"Tercera cornisa: envueltos en humo oscuro, aprenden la serenidad y el perdón a través del sufrimiento."},
+  {lugar:"La Pereza",desc:"Cuarta cornisa: las almas corren sin cesar para compensar el tiempo y el amor que dejaron perder."},
+  {lugar:"La Avaricia",desc:"Quinta cornisa: postradas boca abajo, aprenden a desapegarse de los bienes que antes amaron tanto."},
+  {lugar:"La Gula",desc:"Sexta cornisa: entre frutas y aguas que no pueden alcanzar, aprenden el valor de la templanza."},
+  {lugar:"La Lujuria",desc:"Séptima cornisa: atravesando un muro de llamas purificadoras que queman los últimos restos del pecado."},
+  {lugar:"El Paraíso Terrenal",desc:"La cima del monte donde Matelda recoge flores y el río Leteo borra los pecados recordados."}
+];
+const infierno=[
+  {lugar:"El Limbo",desc:"Primer círculo: las almas virtuosas que no conocieron la fe reposan en melancolía sin tormento activo."},
+  {lugar:"La Lujuria",desc:"Segundo círculo: el viento eterno arrastra a los amantes que se dejaron llevar por la pasión sin freno."},
+  {lugar:"La Gula",desc:"Tercer círculo: lluvia helada y fango eterno para quienes solo vivieron para satisfacer sus apetitos."},
+  {lugar:"La Avaricia",desc:"Cuarto círculo: condenados a empujar eternas rocas unos contra otros por el peso de su codicia."},
+  {lugar:"La Ira",desc:"Quinto círculo: las almas iracundas se golpean en el pantano de la Estigia, atrapadas en su propio odio."},
+  {lugar:"La Herejía",desc:"Sexto círculo: sepultados en tumbas de fuego aquellos que negaron la inmortalidad del alma."},
+  {lugar:"La Violencia",desc:"Séptimo círculo: sumergidos en ríos de sangre hirviente, los violentos sufren su propio tipo de brutalidad."},
+  {lugar:"El Fraude",desc:"Octavo círculo: los engañadores habitan las Malebolge, fosas del mal donde cada trampa tiene su pena."},
+  {lugar:"La Traición",desc:"Noveno círculo: el lago helado de Cocito, donde Lucifer mismo muerde a los más grandes traidores."}
+];
+
+/* ── escala dinámica por JS como respaldo ── */
+(function(){
+  function applyScale(){
+    const w=document.getElementById('dc-root').offsetWidth;
+    const root=document.documentElement;
+    if(w>0&&w<420){
+      /* forzar tamaños grandes para móvil */
+      root.style.setProperty('--fs-title','clamp(28px,8vw,32px)');
+      root.style.setProperty('--fs-qtext','clamp(16px,4.5vw,18px)');
+      root.style.setProperty('--fs-opt','clamp(14px,4vw,16px)');
+      root.style.setProperty('--fs-opt-letter','clamp(16px,4.5vw,18px)');
+      root.style.setProperty('--fs-aviso-p','clamp(13px,3.8vw,15px)');
+      root.style.setProperty('--fs-desc','clamp(13px,3.8vw,15px)');
+      root.style.setProperty('--fs-realm','clamp(30px,8vw,36px)');
+      root.style.setProperty('--fs-place','clamp(15px,4.2vw,17px)');
+      root.style.setProperty('--pad-section','20px 16px 32px');
+      root.style.setProperty('--pad-aviso','14px 12px');
+      root.style.setProperty('--pad-opt-v','15px');
+      root.style.setProperty('--pad-opt-h','12px');
+      root.style.setProperty('--gap-opts','11px');
+    }
+  }
+  applyScale();
+  window.addEventListener('resize',applyScale);
+})();
+
+/* ── lógica ── */
+let currentQ=0,totalScore=0;
+function show(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function startJourney(){currentQ=0;totalScore=0;renderQuestion();show('s-pregunta');}
+function renderQuestion(){
+  const q=preguntas[currentQ];
+  document.getElementById('q-num').textContent='Pregunta '+romanos[currentQ];
+  document.getElementById('q-text').textContent=q.texto;
+  document.getElementById('prog-label').textContent='Pregunta '+(currentQ+1)+' de '+preguntas.length;
+  document.getElementById('prog-fill').style.width=((currentQ+1)/preguntas.length*100)+'%';
+  const el=document.getElementById('q-options');el.innerHTML='';
+  q.opciones.forEach(op=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.innerHTML='<span class="opt-letter">'+op.letra+'</span>'+op.texto;
+    btn.onclick=()=>selectOption(op.pts,btn);
+    el.appendChild(btn);
+  });
+}
+function selectOption(pts,btn){
+  document.querySelectorAll('.option-btn').forEach(b=>{b.classList.remove('selected');b.style.pointerEvents='none';});
+  btn.classList.add('selected');
+  setTimeout(()=>{totalScore+=pts;currentQ++;currentQ<preguntas.length?renderQuestion():showResult();},420);
+}
+function pickRandom(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function showResult(){
+  let rc,rn,data,illus;
+  if(totalScore>=12){rc='realm-paraiso';rn='Paraíso';data=pickRandom(paraiso);illus=svgParaiso();}
+  else if(totalScore>=3){rc='realm-purgatorio';rn='Purgatorio';data=pickRandom(purgatorio);illus=svgPurgatorio();}
+  else{rc='realm-infierno';rn='Infierno';data=pickRandom(infierno);illus=svgInfierno();}
+  const r=document.getElementById('res-realm');r.textContent=rn;r.className='result-realm '+rc;
+  document.getElementById('res-place').textContent='✦ '+data.lugar+' ✦';
+  document.getElementById('res-score').textContent='Puntuación: '+totalScore+' / 20';
+  document.getElementById('res-desc').innerHTML=data.desc;
+  document.getElementById('res-illus').innerHTML=illus;
+  show('s-resultado');
+}
+function reiniciar(){currentQ=0;totalScore=0;show('s-inicio');}
+
+function svgParaiso(){
+  const c12=[...Array(12)].map((_,i)=>{const a=(i/12)*360,r=60,x=+(Math.cos(a*Math.PI/180)*r).toFixed(1),y=+(Math.sin(a*Math.PI/180)*r).toFixed(1),s=3+i%4;return`<circle cx="${x}" cy="${y}" r="${s}" fill="#daa520" opacity="${+(0.5+(i%3)*0.15).toFixed(2)}"/>`;}).join('');
+  const c8=[...Array(8)].map((_,i)=>{const a=(i/8)*360,r=35,x=+(Math.cos(a*Math.PI/180)*r).toFixed(1),y=+(Math.sin(a*Math.PI/180)*r).toFixed(1);return`<circle cx="${x}" cy="${y}" r="${2+i%3}" fill="#fff3b0" opacity="${+(0.7+(i%3)*0.1).toFixed(2)}"/>`;}).join('');
+  return`<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><radialGradient id="gp" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff9e6"/><stop offset="100%" stop-color="#daa520" stop-opacity="0.2"/></radialGradient></defs><circle cx="90" cy="90" r="82" fill="url(#gp)" stroke="#b8860b" stroke-width="1"/><g transform="translate(90,90)">${c12}${c8}</g><circle cx="90" cy="90" r="16" fill="#fff9e6" stroke="#b8860b" stroke-width="1.5"/><text x="90" y="95" text-anchor="middle" font-size="18" fill="#b8860b">✦</text><circle cx="90" cy="90" r="82" fill="none" stroke="#b8860b" stroke-width="0.5" stroke-dasharray="4,4"/></svg>`;
+}
+function svgPurgatorio(){
+  const rects=[...Array(7)].map((_,i)=>{const w=100-i*12,h=18,y=130-i*18,x=90-w/2,s=180+i*10;return`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="rgb(${s},${Math.floor(s*0.8)},${Math.floor(s*0.55)})" stroke="#8b6914" stroke-width="0.5"/>`;}).join('');
+  return`<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><ellipse cx="90" cy="150" rx="60" ry="10" fill="#c8a96e" opacity="0.3"/>${rects}<polygon points="90,20 80,55 100,55" fill="#b8860b" stroke="#daa520" stroke-width="1"/><circle cx="90" cy="16" r="7" fill="#fff3b0" stroke="#b8860b" stroke-width="1"/><text x="90" y="20" text-anchor="middle" font-size="10" fill="#b8860b">✦</text></svg>`;
+}
+function svgInfierno(){
+  const rings=[...Array(9)].map((_,i)=>`<circle cx="90" cy="90" r="${8+i*8}" fill="none" stroke="#8b0000" stroke-width="0.5" opacity="${+(0.2+i*0.08).toFixed(2)}"/>`).join('');
+  const flames=[-20,-10,0,10,20].map((x,i)=>{const h=15+(i%3)*10;return`<path d="M${x},20 Q${x-4},${-h/2} ${x},${-h} Q${x+4},${-h/2} ${x},20" fill="#c41230" opacity="${+(0.4+(i%3)*0.15).toFixed(2)}"/>`;}).join('');
+  return`<svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><radialGradient id="gi" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#ff4500" stop-opacity="0.15"/><stop offset="100%" stop-color="#1a0000" stop-opacity="0.05"/></radialGradient></defs><circle cx="90" cy="90" r="82" fill="url(#gi)" stroke="#8b0000" stroke-width="1"/>${rings}<g transform="translate(90,90)">${flames}</g><text x="90" y="98" text-anchor="middle" font-size="22" fill="#8b0000" opacity="0.8">☽</text><circle cx="90" cy="90" r="82" fill="none" stroke="#8b0000" stroke-width="0.5" stroke-dasharray="3,5"/></svg>`;
+}
+</script>
